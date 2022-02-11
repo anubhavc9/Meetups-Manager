@@ -5,14 +5,16 @@ async function handler(req, res) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    // connecting to MongoDB Atlas & inserting the new meetup data in the db
+    // connecting to MongoDB Atlas
     const client = await MongoClient.connect(
       'mongodb+srv://Anubhav123:Anubhav123@cluster0.sdhjc.mongodb.net/meetups?retryWrites=true&w=majority'
     );
     const db = client.db();
 
-    const meetupsCollection = db.collection('meetups'); // collection name
+    // making a new collection/selecting an existing collection(table)
+    const meetupsCollection = db.collection('meetups');
 
+    // inserting the new meetup data
     const result = await meetupsCollection.insertOne(data);
     console.log(result);
 
