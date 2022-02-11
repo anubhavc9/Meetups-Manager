@@ -20,7 +20,7 @@ const DUMMY_MEETUPS = [
     description: 'This is a second meetup among the fans',
   },
   {
-    id: 'm1',
+    id: 'm3',
     title: 'A Third Meetup',
     image:
       'https://www.visittheusa.com/sites/default/files/styles/hero_l/public/images/hero_media_image/2016-10/0%20HERO_HoustonTX_GettyImages-532390052.jpg?h=c5520b1b&itok=uKyYtaMD',
@@ -29,8 +29,19 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-function HomePage() {
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+function HomePage(props) {
+  return <MeetupList meetups={props.meetups} />;
+}
+
+export async function getStaticProps() {
+  // fetch data from an API here. for now, we'll work with DUMMY_MEETUPS
+
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+    revalidate: 100,
+  };
 }
 
 export default HomePage;
