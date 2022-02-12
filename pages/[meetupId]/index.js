@@ -1,52 +1,62 @@
+import { MongoClient, ObjectId } from 'mongodb';
 import MeetupDetail from '../../components/meetups/MeetupDetail';
 
-function MeetupDetails() {
+function MeetupDetails(props) {
   return (
     <MeetupDetail
-      image='https://media-cdn.tripadvisor.com/media/photo-s/01/1b/ae/57/another-view.jpg'
-      title='First Meetup'
-      address='Chicago, Ilinois'
-      description='This is a First Meetup'
+      image={props.meetupData.image}
+      title={props.meetupData.title}
+      address={props.meetupData.address}
+      description={props.meetupData.description}
     />
   );
 }
 
 export async function getStaticPaths() {
+  const client = await MongoClient.connect(
+    'mongodb+srv://Anubhav123:Anubhav123@cluster0.sdhjc.mongodb.net/meetups?retryWrites=true&w=majority'
+  );
+  const db = client.db();
+  const meetupsCollection = db.collection('meetups');
+
+  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
+  client.close();
+
+  // now we can generate the paths array dynamically
   return {
     fallback: false,
-    paths: [
-      {
-        params: {
-          meetupId: 'm1',
-        },
+    paths: meetups.map((meetup) => ({
+      params: {
+        meetupId: meetup._id.toString(),
       },
-      {
-        params: {
-          meetupId: 'm2',
-        },
-      },
-      {
-        params: {
-          meetupId: 'm3',
-        },
-      },
-    ],
+    })),
   };
 }
 
 export async function getStaticProps(context) {
   const meetupId = context.params.meetupId;
+
+  const client = await MongoClient.connect(
+    'mongodb+srv://Anubhav123:Anubhav123@cluster0.sdhjc.mongodb.net/meetups?retryWrites=true&w=majority'
+  );
+  const db = client.db();
+  const meetupsCollection = db.collection('meetups');
+
   // fetch data for a particular meetup with meetupId
+  const selectedMeetup = await meetupsCollection.findOne({
+    _id: ObjectId(meetupId), // converting the string "meetupId" to ObjectId
+  });
+
+  client.close();
 
   return {
     props: {
       meetupData: {
-        image:
-          'https://media-cdn.tripadvisor.com/media/photo-s/01/1b/ae/57/another-view.jpg',
-        id: meetupId,
-        title: 'First Meetup',
-        address: 'Chicago, Ilinois',
-        description: 'This is a First Meetup',
+        id: selectedMeetup._id.toString(),
+        title: selectedMeetup.title,
+        address: selectedMeetup.address,
+        image: selectedMeetup.image,
+        description: selectedMeetup.description,
       },
     },
   };
