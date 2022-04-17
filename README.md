@@ -7,3 +7,10 @@
 <br>
 
 ## Deployment Link - https://meetups-manager.vercel.app/
+
+<br>
+
+## Steps to run the project locally
+1. Clone the project
+2. `npm install`
+3. `npm run dev`
