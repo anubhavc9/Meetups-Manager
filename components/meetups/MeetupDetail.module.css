@@ -1,7 +1,15 @@
 .detail {
-  text-align: center;
+    text-align: center;
 }
 
 .detail img {
-  width: 100%;
+    width: 100%;
+}
+
+.detail address {
+  font-size: 1.2rem;
+}
+
+.detail p {
+    font-size: 1.1rem;
 }
