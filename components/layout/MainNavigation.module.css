@@ -56,3 +56,56 @@
     color: black;
     background-color: red;
 }
+
+.collapsedUl {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+}
+
+.collapsedUl li {
+    margin: 8px 0px 8px 0px;
+}
+
+.collapsedHeader {
+    justify-content: center;
+    border-top: 3px solid white;
+    height: auto !important;
+    padding: 0 0;
+}
+
+.menuIconWrapper span {
+    display: none;
+}
+
+.barsIcon {
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.menuIconWrapper {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 865px) {
+    .menuIconWrapper span {
+        display: block;
+    }
+    .menuIconWrapper ul {
+        display: none;
+    }
+    .logo {
+        font-size: 1.7rem;
+    }
+    .header a {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 865px) {
+    .collapsedHeader {
+        display: none;
+    }
+}
