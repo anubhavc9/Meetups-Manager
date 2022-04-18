@@ -9,10 +9,10 @@ function HomePage(props) {
   return (
     <Fragment>
       <Head>
-        <title>React Meetups</title>
+        <title>Meetups Manager</title>
         <meta
           name='description'
-          content='Browse a list of highly active React meetups!'
+          content='Browse a list of highly active meetups!'
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
